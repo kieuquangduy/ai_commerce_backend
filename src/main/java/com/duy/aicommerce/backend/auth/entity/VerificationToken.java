@@ -2,10 +2,7 @@ package com.duy.aicommerce.backend.auth.entity;
 
 import com.duy.aicommerce.backend.user.entity.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 @Table(name = "verification_tokens")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class VerificationToken {
@@ -36,8 +34,8 @@ public class VerificationToken {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(name = "used")
-    private boolean used;
+    @Column
+    private Boolean used;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
