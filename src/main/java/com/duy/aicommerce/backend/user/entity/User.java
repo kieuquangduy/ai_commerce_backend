@@ -3,21 +3,22 @@ package com.duy.aicommerce.backend.user.entity;
 
 import com.duy.aicommerce.backend.role.entity.Role;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.UpdateTimestamp;
 
+
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,9 +38,9 @@ public class User {
     private String lastName;
 
     @Column(name = "is_profile_completed")
-    private Boolean ProfileCompleted;
+    private Boolean profileCompleted;
     @Column(name = "is_verified")
-    private Boolean Verified;
+    private Boolean verified;
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -50,9 +51,17 @@ public class User {
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id")
-    private Role role;
+
+    @Builder.Default
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+
 
 
 }

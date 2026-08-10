@@ -1,10 +1,11 @@
 package com.duy.aicommerce.backend.role.repository;
 
 import com.duy.aicommerce.backend.role.entity.Role;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import java.util.Optional;
 
-public interface RoleRepository extends CrudRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Role,Long> {
     Optional<Role> findByName(String name);
 }
