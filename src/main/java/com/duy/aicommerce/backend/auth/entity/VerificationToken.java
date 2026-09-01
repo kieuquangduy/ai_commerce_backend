@@ -35,7 +35,7 @@ public class VerificationToken {
     private LocalDateTime createdAt;
 
     @Column
-    private Boolean used;
+    private boolean used;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
