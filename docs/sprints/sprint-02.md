@@ -48,3 +48,8 @@ Sprint Authentication
    + 3: Người dùng có đủ quyền hay role để đăng nhập hay không
 - Lý do nếu dùng jwt thì tắt csrf là vì jwt lưu ở LocalStorage
 
+* Cơ chế Persistence Context và Dirty Checking
+
+
+* LazyInitializationException xảy ra khi Hibernate cần lazy-load một relationship nhưng persistence context/session đã đóng. Một cách xử lý là đảm bảo việc truy cập relationship xảy ra trong transaction, ví dụ dùng @Transactional.
+
