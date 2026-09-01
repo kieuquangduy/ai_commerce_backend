@@ -40,7 +40,7 @@ public class User {
     @Column(name = "is_profile_completed")
     private Boolean profileCompleted;
     @Column(name = "is_verified")
-    private Boolean verified;
+    private boolean verified;
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
