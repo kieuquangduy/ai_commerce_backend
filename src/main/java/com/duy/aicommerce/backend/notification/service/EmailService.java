@@ -1,7 +1,7 @@
 package com.duy.aicommerce.backend.notification.service;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import com.duy.aicommerce.backend.auth.entity.VerificationToken;
+
+import com.duy.aicommerce.backend.notification.template.MissingPasswordEmailTemplate;
 import com.duy.aicommerce.backend.notification.template.VerificationEmailTemplate;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -33,7 +33,7 @@ public class EmailService {
             String html = emailTemplate.build(verifyLink);
 
             helper.setTo(email);
-            helper.setSubject("Kích hoạt tài khoản của bạn");
+            helper.setSubject("Xác minh tài khoản");
             helper.setText(html, true);
 
             mailSender.send(mimeMessage);
@@ -43,4 +43,25 @@ public class EmailService {
 
         }
     }
+    @Async
+    public void sendMissingPasswordEmail(String email, String verifyLink) throws MessagingException {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true); //cho phép gửi multipart
+
+            MissingPasswordEmailTemplate emailTemplate = new MissingPasswordEmailTemplate();
+            String html = emailTemplate.build(verifyLink);
+
+            helper.setTo(email);
+            helper.setSubject("Quên mật khẩu");
+            helper.setText(html, true);
+
+            mailSender.send(mimeMessage);
+
+        } catch (MessagingException e) {
+            System.out.println(e.getMessage());
+
+        }
+    }
+
 }
